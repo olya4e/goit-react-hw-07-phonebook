@@ -1,21 +1,21 @@
-import { useSelector } from "react-redux";
-// import { deleteContact } from 'redux/slices/contactsSlice';
+import { useSelector, useDispatch } from "react-redux";
+import { deleteContact } from 'redux/operations';
 import {getContacts, getFilter} from 'redux/selectors';
 import { ContactItem } from '../ContactItem/ContactItem'
 import css from './ContactList.module.css'
 
 export const ContactList = () => {
-    const contacts = useSelector(getContacts)
+    const {contacts:{items}} = useSelector(getContacts)
     const filter = useSelector(getFilter)
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     const getFilterContacts = () => {
         if (!filter) {
-            return contacts
+            return items
         }
         const normalaizedFilter = filter.toLowerCase();
 
-        return contacts.filter(({ name }) => {
+        return items.filter(({ name }) => {
             const normalaizedName = name.toLowerCase();
             const result = normalaizedName.includes(normalaizedFilter);
             return result;
@@ -23,13 +23,13 @@ export const ContactList = () => {
     }
     
      const onDeleteContact = (id) => {
-    // dispatch(deleteContact(id))
+    dispatch(deleteContact(id))
   }
         return (
     <ul className={css.list}>
-        {contacts && getFilterContacts().map((contact) => 
+        {items.length>0  && getFilterContacts().map((contact) => 
         {
-            return <ContactItem key={contact.id} id={contact.id} name={contact.name} number={contact.number} onDelete={onDeleteContact}/>
+            return <ContactItem key={contact.id} id={contact.id} name={contact.name} number={contact.phone} onDelete={onDeleteContact}/>
         }
         )}
     </ul>
