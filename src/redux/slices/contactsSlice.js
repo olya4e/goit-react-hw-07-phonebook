@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { addContact, fetchContacts, deleteContact } from 'redux/operations';
-// import { persistReducer } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -12,58 +19,22 @@ const contactsSlice = createSlice({
       error: null,
     },
   },
-  reducers: {
-    // addContact(state, action) {
-    //   state.contacts.push({ id: nanoid(), ...action.payload });
-    // },
-    // deleteContact(state, action) {
-    //   state.contacts = state.contacts.filter(
-    //     contact => contact.id !== action.payload
-    //   );
-    // },
-    // Виконається в момент старту HTTP-запиту
-    // fetchingInProgress(state) {
-    //   state.isLoading = true;
-    // },
-    // Виконається якщо HTTP-запит завершився успішно
-    // fetchingSuccess(state, action) {
-    //   state.isLoading = false;
-    //   state.error = null;
-    //   state.contacts = action.payload;
-    // },
-    // Виконається якщо HTTP-запит завершився з помилкою
-    // fetchingError(state, action) {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
-  },
   extraReducers: {
-    [fetchContacts.pending](state) {
-      state.isLoading = true;
-    },
+    [fetchContacts.pending]: handlePending,
+    [addContact.pending]: handlePending,
+    [deleteContact.pending]: handlePending,
+    [fetchContacts.rejected]: handleRejected,
+    [addContact.rejected]: handleRejected,
+    [deleteContact.rejected]: handleRejected,
     [fetchContacts.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
       state.contacts.items = action.payload;
     },
-    [fetchContacts.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    [addContact.pending](state) {
-      state.isLoading = true;
-    },
     [addContact.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
       state.contacts.items.push(action.payload);
-    },
-    [addContact.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    [deleteContact.pending](state) {
-      state.isLoading = true;
     },
     [deleteContact.fulfilled](state, action) {
       state.isLoading = false;
@@ -73,18 +44,7 @@ const contactsSlice = createSlice({
       );
       state.contacts.items.splice(index, 1);
     },
-    [deleteContact.rejected](state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
   },
 });
 
-// const persistConfig = {
-//   key: 'contacts',
-//   storage,
-//   whitelist: ['contacts'],
-// };
 export const contactsReduser = contactsSlice.reducer;
-// export const { fetchingInProgress, fetchingSuccess, fetchingError } =
-//   contactsSlice.actions;

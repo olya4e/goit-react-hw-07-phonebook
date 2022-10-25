@@ -1,8 +1,8 @@
-import {  useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import {addContact} from 'redux/operations';
 import css from './ContactForm.module.css'
-import { nanoid } from '@reduxjs/toolkit';
+
 
 export const ContactForm = () => {    
   const dispatch = useDispatch()
@@ -11,7 +11,6 @@ export const ContactForm = () => {
     e.preventDefault()
       const { name, number } = e.target.elements
       let newContact = {
-        id: nanoid(),
         name: name.value,
         phone: number.value
       }

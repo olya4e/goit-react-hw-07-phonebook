@@ -39,16 +39,3 @@ export const deleteContact = createAsyncThunk(
   }
 );
 
-// export const fetchContacts = () => async dispatch => {
-//   try {
-//     // Індикатор завантаження
-//     dispatch(fetchingInProgress());
-//     // HTTP-запит
-//     const response = await axios.get('/contacts');
-//     // Обробка даних
-//     dispatch(fetchingSuccess(response.data));
-//   } catch (err) {
-//     // Обробка помилки
-//     dispatch(fetchingError(err.message));
-//   }
-// };
