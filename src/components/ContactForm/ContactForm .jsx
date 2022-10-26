@@ -6,7 +6,7 @@ import css from './ContactForm.module.css'
 
 export const ContactForm = () => {    
   const dispatch = useDispatch()
-  const items = useSelector(selectContacts)
+  const contacts = useSelector(selectContacts)
     const handleSubmitForm = (e) => {
     e.preventDefault()
       const { name, number } = e.target.elements
@@ -21,7 +21,7 @@ export const ContactForm = () => {
 
   const isAddedContact = (newContact) => {
      const {name}=newContact
-     const addedName = items.find(
+     const addedName = contacts.find(
         contact =>
          contact.name.toLowerCase() === name.toLowerCase())
     if (addedName) {

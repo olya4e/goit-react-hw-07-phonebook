@@ -7,7 +7,7 @@ export const ContactList = () => {
     const filteredContacts = useSelector(selectVisibleContacts)
     
     if (!filteredContacts) {
-        return <p>There are no contacts</p>
+        return <p>Not found contacts</p>
     }
         return (
     <ul className={css.list}>

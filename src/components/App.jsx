@@ -1,11 +1,12 @@
+import { useDispatch, useSelector } from 'react-redux';
+import {useEffect} from 'react';
 import { ContactForm } from './ContactForm/ContactForm '
 import { ContactList } from "./ContactList/ContactList"
 import { Filter } from "./Filter/Filter";
 import { fetchContacts } from 'redux/operations';
 import { selectError, selectIsLoading} from 'redux/selectors';
 import css from './ContactForm/ContactForm.module.css'
-import { useDispatch, useSelector } from 'react-redux';
-import {useEffect} from 'react';
+
 
 export const App = () => {
   const dispatch = useDispatch()
