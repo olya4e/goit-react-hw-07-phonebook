@@ -19,7 +19,7 @@ export const ContactForm = () => {
   };
 
   const isAddedContact = newContact => {
-    const { name } = newContactp;
+    const { name } = newContact;
     const addedName = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
